@@ -22,6 +22,6 @@ public class PanelStarry extends JPanel
 		super.paintComponent(g);
 
 		//Image img = getToolkit().getImage ( "./images/BlobBocchi.gif" );
-		g.drawImage( this.img, 0, 0, 50, 50, this);
+		g.drawImage( this.img, 0, 0, this.getWidth(), this.getHeight(), this);
 	}
 }
