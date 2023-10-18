@@ -7,7 +7,7 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-public class FrameBocchi extends JFrame implements ActionListener, MouseListener
+public class FrameStarry extends JFrame implements ActionListener, MouseListener
 {
     private PanelStarry panel;
     private int posX;
@@ -23,24 +23,31 @@ public class FrameBocchi extends JFrame implements ActionListener, MouseListener
     Timer timer;
     
     private FrameCompteur compteur;
+    private String nom;
 	
-	
-	
-	public FrameBocchi(FrameCompteur compteur/*, PanelStarry panel*/)
-	{
-		this();
-		this.compteur = compteur;
-		//this.panel = panel;
-	}
+	private int taille;
+    private int vitesseMax;
+    private int vitesseMin;
 
-    public FrameBocchi()
-    {
-        this.panel = new PanelBocchi();
+    private int point;
+    private int survie;
+
+    public FrameStarry(FrameCompteur compteur, String nom, int taille, int vitesseMin, int vitesseMax, int point, int survie)
+	{
+		this.compteur = compteur;
+		this.nom = nom;
+        this.taille = taille;
+        this.vitesseMax = vitesseMax;
+        this.vitesseMin = vitesseMin;//voir si utile
+        this.point = point;
+        this.survie = survie;
+
         this.clickCount = 0;
 
+        this.panel = new PanelStarry("./images/" + this.nom + ".gif");
         this.add(this.panel);
 
-        this.setSize(50, 50);
+        this.setSize(this.taille, this.taille);
         this.setUndecorated(true);
         this.setBackground(new Color(0, 0, 0, 0));
         this.setAlwaysOnTop(true);
@@ -53,10 +60,9 @@ public class FrameBocchi extends JFrame implements ActionListener, MouseListener
         this.screenWidth  = Toolkit.getDefaultToolkit().getScreenSize().width;
         this.screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
         
-        
         // Init direction
-        this.dirX = (int)(Math.random() * 10) - 5;
-        this.dirY = (int)(Math.random() * 10) - 5;
+        this.dirX = (int)(Math.random() * this.vitesseMax) - this.vitesseMax/2;
+        this.dirY = (int)(Math.random() * this.vitesseMax) - this.vitesseMax/2;
 
         // Coordonnées initiales sur un côté de l'écran
         this.posX = (int)(Math.random() * this.screenWidth) ;
@@ -72,26 +78,21 @@ public class FrameBocchi extends JFrame implements ActionListener, MouseListener
 		//System.out.println(screenWidth + "   " + screenHeight );
 	}
 
-	public static void main(String[] args) 
-	{
-		new FrameBocchi();
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
 		
-		if( posX > screenWidth )
-			this.dirX = (int)(Math.random() * 5) - 5;
+		if( this.posX > screenWidth )
+			this.dirX = -(int)(Math.random() * this.vitesseMax/2);
 		
-		if( posY > screenHeight - 50 )
-			this.dirY = (int)(Math.random() * 5) - 5;
+		if( this.posY > screenHeight - 50 )
+			this.dirY = -(int)(Math.random() * this.vitesseMax/2);
 		
-		if( posX < 0 )
-			this.dirX = (int)(Math.random() * 5);
+		if( this.posX < 0 - 50 )
+			this.dirX = (int)(Math.random() * this.vitesseMax/2);
 		
-		if( posY < 0 + 50 )
-			this.dirY = (int)(Math.random() * 5);
+		if( this.posY < 0 )
+			this.dirY = (int)(Math.random() * this.vitesseMax/2);
 		
 		this.posX += this.dirX;
 		this.posY += this.dirY;
@@ -105,14 +106,14 @@ public class FrameBocchi extends JFrame implements ActionListener, MouseListener
     @Override
     public void mousePressed(MouseEvent e)
     {
-        if (clickCount < 1)
+        if (this.clickCount < this.survie)
         {
-            clickCount++;
+            this.clickCount++;
         }
         else
         {
         	if( this.compteur != null )
-        		this.compteur.ajouterScore(1);
+        		this.compteur.ajouterScore(this.point);
         	
             dispose();
         }
