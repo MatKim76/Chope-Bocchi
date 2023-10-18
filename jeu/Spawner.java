@@ -18,6 +18,8 @@ public class Spawner
 				case 0  : 
 				case 1  : new FrameStarry(this.compteur, "BlobNijika", 50, 0, 20, 2, 1); break;
 
+				case 3  : new FrameStarry(this.compteur, "BlobRyo", 50, 0, 20, 2, 1); break;
+
 				default : new FrameStarry(this.compteur, "BlobBocchi", 50, 0, 10, 1, 1);
 			}
 		
