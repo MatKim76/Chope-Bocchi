@@ -31,6 +31,8 @@ public class FrameStarry extends JFrame implements ActionListener, MouseListener
 
     private int point;
     private int survie;
+    
+    private boolean geant = false;
 
     public FrameStarry(FrameCompteur compteur, String nom, int taille, int vitesseMin, int vitesseMax, int point, int survie)
 	{
@@ -69,13 +71,32 @@ public class FrameStarry extends JFrame implements ActionListener, MouseListener
         this.posY = (int)(Math.random() * this.screenHeight) ;
         
         this.setLocation(posX, posY);
-
+		
+		//this.setCuror(new Cursor("nomimage"));
+		
 		timer = new Timer(10, this);
 		
 		timer.start();
 		//timer.stop();
 		
 		//System.out.println(screenWidth + "   " + screenHeight );
+	}
+	
+	public FrameStarry(FrameCompteur compteur, String nom, int taille, int vitesseMin, int vitesseMax, int point, int survie, boolean geant)
+	{
+		this(compteur,nom,taille,vitesseMin,vitesseMax,point,survie);
+		this.geant = geant;
+	}
+	
+	public void explosion()
+	{
+		int test = (int)(Math.random() * 3) + 3;
+		
+		for(int cpt = 0; cpt < test; cpt++)
+		{
+			FrameStarry a = new FrameStarry(this.compteur, this.nom, 50, 0, 15, 1, 1);
+			a.setPos(this.posX, this.posY);
+		}
 	}
 
 	@Override
@@ -99,6 +120,12 @@ public class FrameStarry extends JFrame implements ActionListener, MouseListener
 		
         this.setLocation(posX, posY);
     }
+    
+    public void setPos(int x, int y)
+    {
+    	this.posX = x;
+    	this.posY = y;
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {}
@@ -109,11 +136,23 @@ public class FrameStarry extends JFrame implements ActionListener, MouseListener
         if (this.clickCount < this.survie)
         {
             this.clickCount++;
+            
+            if( this.nom.equals("BlobKita") )
+            {
+				this.dirX = (int)(Math.random() * this.vitesseMax) - this.vitesseMax/2;
+				this.dirY = (int)(Math.random() * this.vitesseMax) - this.vitesseMax/2;
+				
+				this.posX = (int)(Math.random() * this.screenWidth) ;
+				this.posY = (int)(Math.random() * this.screenHeight) ;
+            }
         }
         else
         {
         	if( this.compteur != null )
         		this.compteur.ajouterScore(this.point);
+        	
+        	if(this.geant)
+        		explosion();
         	
             dispose();
         }
@@ -125,7 +164,11 @@ public class FrameStarry extends JFrame implements ActionListener, MouseListener
     @Override
     public void mouseEntered(MouseEvent e)
     {
-    	//timer.start();
+    	if( this.nom.equals("BlobHiroi") )
+    	{
+			this.dirX = (int)(Math.random() * this.vitesseMax) - this.vitesseMax/2;
+			this.dirY = (int)(Math.random() * this.vitesseMax) - this.vitesseMax/2;
+    	}
     }
 
     @Override
