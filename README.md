@@ -9,7 +9,7 @@ Chaque Blob à des spécificités différentes :
  - Hiroi (Violet) : change de direction quand vous voulez le cliquer
  - Les Géants : explosent en pleins de petits !
  
-#Attention ! ce programme peut générer du lag donc il est recomander de tuer les blobs au plus vite !
+# Attention ! ce programme peut générer du lag donc il est recomander de tuer les blobs au plus vite !
 
-Pour lancer le jeu effectur la commande : 
+Pour lancer le jeu effectuer la commande : 
 ./compileur.sh
