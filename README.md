@@ -13,3 +13,4 @@ Chaque Blob à des spécificités différentes :
 
 Pour lancer le jeu effectuer la commande : 
 ./compileur.sh
+ 
