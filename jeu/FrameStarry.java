@@ -4,8 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.Toolkit;
 
-import javax.swing.JFrame;
-import javax.swing.Timer;
+import javax.sound.sampled.*;
+import javax.swing.*;
 
 public class FrameStarry extends JFrame implements ActionListener, MouseListener
 {
@@ -33,6 +33,7 @@ public class FrameStarry extends JFrame implements ActionListener, MouseListener
     private int survie;
     
     private boolean geant = false;
+    private Doritos doritos;
 
     public FrameStarry(FrameCompteur compteur, String nom, int taille, int vitesseMin, int vitesseMax, int point, int survie)
 	{
@@ -78,8 +79,6 @@ public class FrameStarry extends JFrame implements ActionListener, MouseListener
 		
 		timer.start();
 		//timer.stop();
-		
-		//System.out.println(screenWidth + "   " + screenHeight );
 	}
 	
 	public FrameStarry(FrameCompteur compteur, String nom, int taille, int vitesseMin, int vitesseMax, int point, int survie, boolean geant)
@@ -103,34 +102,67 @@ public class FrameStarry extends JFrame implements ActionListener, MouseListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		
-		if( this.posX > screenWidth )
+		if( this.posX >= screenWidth - this.taille )
 			this.dirX = -(int)(Math.random() * this.vitesseMax/2);
 		
-		if( this.posY > screenHeight - 50 )
+		if( this.posY >= screenHeight - this.taille )
 			this.dirY = -(int)(Math.random() * this.vitesseMax/2);
 		
-		if( this.posX < 0 - 50 )
+		if( this.posX <= 0 - this.taille )
 			this.dirX = (int)(Math.random() * this.vitesseMax/2);
 		
-		if( this.posY < 0 )
+		if( this.posY <= 0 - this.taille )
 			this.dirY = (int)(Math.random() * this.vitesseMax/2);
 		
-		this.posX += this.dirX;
-		this.posY += this.dirY;
+		if( this.nom.equals("BlobBocchi") && this.compteur.aDoritos() && !this.geant)
+		{
+			if(this.doritos == null)
+			{
+				this.doritos = this.compteur.getDoritos(0);
+			}
+			
+			double distanceX = doritos.getX() - this.posX;
+			double distanceY = doritos.getY() - this.posY;
+			double distanceTotale = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+			
+			if (distanceTotale > 0)
+			{
+				double ratio = (this.vitesseMax/3) / distanceTotale;
+				this.posX += (int) (ratio * distanceX);
+				this.posY += (int) (ratio * distanceY);
+			}
+			
+			if (distanceTotale <= 15)
+			{
+				this.compteur.delDoritos(this.doritos);
+				this.doritos.getTimer().stop();
+				this.doritos.dispose();
+				this.doritos = null;
+				
+				FrameStarry blob = new FrameStarry(this.compteur, "BlobNijika", 50, 0, 15, 2, 1);
+				blob.setPos(this.posX, this.posY);
+			}
+		}
+		else
+		{
+			this.posX += this.dirX;
+			this.posY += this.dirY;
+			this.doritos = null;
+		}
 		
-        this.setLocation(posX, posY);
-    }
-    
-    public void setPos(int x, int y)
-    {
-    	this.posX = x;
-    	this.posY = y;
-    }
+		this.setLocation(this.posX, this.posY);
+	}
 
-    @Override
-    public void mouseClicked(MouseEvent e) {}
+	public void setPos(int x, int y)
+	{
+		this.posX = x;
+		this.posY = y;
+	}
 
-    @Override
+	@Override
+	public void mouseClicked(MouseEvent e) {}
+
+	@Override
     public void mousePressed(MouseEvent e)
     {
         if (this.clickCount < this.survie)
@@ -154,6 +186,13 @@ public class FrameStarry extends JFrame implements ActionListener, MouseListener
         	if(this.geant)
         		explosion();
         	
+        	if( this.nom.equals("BlobNijika") )
+        	{
+        		new Doritos(this.compteur, this.posX, this.posY);
+        	}
+        	
+        	//jouerSon(son.wav);
+        	this.timer.stop();
             dispose();
         }
     }
@@ -176,4 +215,19 @@ public class FrameStarry extends JFrame implements ActionListener, MouseListener
     {
     	//timer.stop();
     }
+    
+    /*private void jouerSon(String cheminSon) {
+        try {
+            // Charger le fichier audio
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(cheminSon).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+
+            // Jouer le son
+            clip.start();
+
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }*/
 }

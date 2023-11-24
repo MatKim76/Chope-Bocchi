@@ -3,10 +3,14 @@ package jeu;
 import javax.swing.*;
 import java.awt.*;
 
+import java.util.ArrayList;
+
 public class FrameCompteur extends JFrame
 {
 	private JLabel lblScore;
 	private int score;
+	
+	private ArrayList<Doritos> lstDoritos;
 	
 	public FrameCompteur()
 	{
@@ -16,7 +20,7 @@ public class FrameCompteur extends JFrame
 		this.add(this.lblScore);
 		
 		this.score = 0;
-		
+		lstDoritos = new ArrayList<Doritos>();
 		
 		this.setSize(200, 100);
 		//this.setUndecorated(true);
@@ -32,4 +36,23 @@ public class FrameCompteur extends JFrame
 		this.lblScore.setText("SCORE : " + this.score + "");
 	}
 	
+	public boolean aDoritos()
+	{
+		return !lstDoritos.isEmpty();
+	}
+	
+	public Doritos getDoritos(int i)
+	{
+		return this.lstDoritos.get(i);
+	}
+	
+	public void newDoritos(Doritos d)
+	{
+		this.lstDoritos.add(d);
+	}
+	
+	public void delDoritos(Doritos d)
+	{
+		this.lstDoritos.remove(d);
+	}
 }
