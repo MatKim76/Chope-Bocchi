@@ -15,5 +15,5 @@ Pour lancer le jeu effectuer la commande :
 ./compileur.sh
 
 Pour cloner le dossier : 
-git clone @MatKim76
+git clone https://github.com/MatKim76/Chope-Bocchi.git
  
