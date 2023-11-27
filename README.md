@@ -3,7 +3,7 @@ Petit jeu java dans lequelle il faut cliquer sur les blob qui apparaissent afin 
 
 Chaque Blob à des spécificités différentes : 
  - Bocchi (Rose) : rien de spéciale
- - Nijika (Jaune) : + rapide
+ - Nijika (Jaune) : à leurs morts, ils se transforment en doritos et les Roses vont essayer de les réssuciter en les touchant.
  - Ryo (Bleu) : ++ rapide
  - Kita (Rouge) : se téléporte à chaque clique
  - Hiroi (Violet) : change de direction quand vous voulez le cliquer
@@ -13,4 +13,7 @@ Chaque Blob à des spécificités différentes :
 
 Pour lancer le jeu effectuer la commande : 
 ./compileur.sh
+
+Pour cloner le dossier : 
+git clone @MatKim76
  
