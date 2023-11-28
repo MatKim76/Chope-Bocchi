@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 
 
-public class Doritos extends JFrame implements ActionListener
+public class Doritos extends JDialog implements ActionListener
 {
 	private JPanel panel;
 	
@@ -28,7 +28,7 @@ public class Doritos extends JFrame implements ActionListener
 		this.setLocation(x,y);
 		this.setSize(25,25);
 		
-		this.panel = new PanelStarry("./images/Doritos.gif");
+		this.panel = new PanelStarry("./images/Doritos.png");
 		this.add(this.panel);
 		//this.setBackground(Color.YELLOW);
 		

@@ -7,7 +7,7 @@ import java.awt.Toolkit;
 import javax.sound.sampled.*;
 import javax.swing.*;
 
-public class FrameStarry extends JFrame implements ActionListener, MouseListener
+public class FrameStarry extends JDialog implements ActionListener, MouseListener
 {
     private PanelStarry panel;
     private int posX;
