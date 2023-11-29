@@ -12,15 +12,16 @@ Chaque Blob à des spécificités différentes :
 ### Attention ! ce programme peut générer du lag donc il est recomander de tuer les blobs au plus vite !
 
 Pour lancer le jeu effectuer la commande : 
-chmod u+x compileur.sh
 
-./compileur.sh
+#### chmod u+x compileur.sh
+
+#### ./compileur.sh
 
 ou
 
-javac jeu/*.java
+#### javac jeu/*.java
 
-java jeu/Spawner
+#### java jeu/Spawner
 
 Pour cloner le dossier : 
 git clone https://github.com/MatKim76/Chope-Bocchi.git
