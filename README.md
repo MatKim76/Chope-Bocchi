@@ -13,11 +13,13 @@ Chaque Blob à des spécificités différentes :
 
 Pour lancer le jeu effectuer la commande : 
 chmod u+x compileur.sh
+
 ./compileur.sh
 
 ou
 
 javac jeu/*.java
+
 java jeu/Spawner
 
 Pour cloner le dossier : 
